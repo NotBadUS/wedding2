@@ -15,7 +15,7 @@ const fadeUp = {
   },
 };
 
-const palette = ["#220909", "#4b1f2c", "#7d001c", "#9e243f", "#efe4d9"];
+const palette = ["#220909", "#4b1f2c", "#7d001c", "#9e243f", "#efe4d9", "#c4c4c4"];
 
 const dayPlan = [
   { time: "15:30", label: "сбор гостей", side: "left" },
@@ -82,8 +82,8 @@ function calculateTimeLeft(target) {
   };
 }
 
-function buildAugust2026Cells() {
-  const offset = 5; // 1 августа 2026 — суббота
+function buildJuly2026Cells() {
+  const offset = 3; // 1 июля 2026 — среда
 
   const cells = [];
 
@@ -157,12 +157,12 @@ function Section({ children, className = "", style }) {
 }
 
 export default function App() {
-  const weddingDate = new Date("2026-08-07T16:00:00");
+  const weddingDate = new Date("2026-07-24T16:00:00");
   const [timeLeft, setTimeLeft] = useState(() =>
     calculateTimeLeft(weddingDate)
   );
   const [sending, setSending] = useState(false);
-  const calendarCells = buildAugust2026Cells();
+  const calendarCells = buildJuly2026Cells();
 
   const handleFormSubmit = async (e) => {
   e.preventDefault();
@@ -175,8 +175,6 @@ export default function App() {
   const data = {
     fullname: `${firstName} ${lastName}`.trim(),
     attendance: formData.get("attendance"),
-    plusOne: formData.get("plusOne"),
-    kids: formData.get("kids"),
     drinks: formData.get("drinks") || "—",
     favoriteSong: formData.get("favoriteSong") || "—",
   };
@@ -187,8 +185,6 @@ export default function App() {
 👤 Гость: ${data.fullname}
 
 ✅ Присутствие: ${data.attendance}
-❤️ Пара: ${data.plusOne}
-👶 Дети: ${data.kids}
 
 🍷 Напитки:
 ${data.drinks}
@@ -247,7 +243,7 @@ ${data.favoriteSong}
             fill="none"
           />
           <path
-            d="M248 78c-14-14-34 1-14 14l14 14 14-14c19-13-1-28-14-14z"
+            d="M248 95c-14-14-34 1-14 14l14 14 14-14c19-13-1-28-14-14z"
             fill={BURGUNDY}
             className="heart-pulse"
           />
@@ -326,10 +322,10 @@ ${data.favoriteSong}
 
           <TapedCard className="mx-auto mt-10 max-w-[17.5rem] px-5 pb-6 pt-8 text-[#64001b]">
             <p className="font-script text-center text-[2.4rem] leading-none rotate-[-2deg]">
-              07.08.2026
+              24.07.2026
             </p>
             <h2 className="font-script mt-5 text-center text-[2.2rem] leading-none rotate-[-1deg]">
-              август
+              июль
             </h2>
 
             <div className="mt-6 grid grid-cols-7 gap-y-2 gap-x-1 text-center">
@@ -346,7 +342,7 @@ ${data.favoriteSong}
                   {day ? (
                     <span
                       className={`font-title text-[1.05rem] ${
-                        day === 7
+                        day === 24
                           ? "flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#64001b]"
                           : ""
                       }`}
@@ -377,7 +373,7 @@ ${data.favoriteSong}
           <h2 className="font-script text-[2.8rem] rotate-[-2deg]">Локация</h2>
           <TapedCard className="mt-8 overflow-hidden p-2 rotate-[-1deg]">
             <iframe
-              src="https://yandex.ru/map-widget/v1/?ll=43.963093%2C56.323902&mode=search&oid=1062980326&ol=biz&z=17"
+              src="https://yandex.ru/map-widget/v1/?ll=43.762317%2C56.180337&z=16&pt=43.762317%2C56.180337,pm2rdm"
               width="100%"
               height="280"
               frameBorder="0"
@@ -396,13 +392,32 @@ ${data.favoriteSong}
 
       {/* ——— ПЛАН ДНЯ ——— */}
       <Section className="border-b border-[#64001b]/10 py-16">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mx-auto w-full max-w-[20rem] text-[#64001b]"
-        >
+        
+<div className="relative">
+  
+  {/* фото справа сверху */}
+  <img
+    src="/photos/plan-top.jpg"
+    alt="plan top"
+    className="absolute right-0 -top-10 w-24 rotate-6 rounded-md shadow-lg"
+  />
+
+  {/* фото слева снизу */}
+  <img
+    src="/photos/plan-bottom.jpg"
+    alt="plan bottom"
+    className="absolute left-0 -bottom-10 w-24 -rotate-6 rounded-md shadow-lg"
+  />
+
+  {/* твой существующий контент */}
+  <motion.div
+    variants={fadeUp}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true }}
+    className="mx-auto w-full max-w-[26rem] text-[#64001b]"
+  >
+
           <p className="font-script text-[1.2rem] leading-tight -rotate-6">
             План нашего дня
           </p>
@@ -431,9 +446,9 @@ ${data.favoriteSong}
               {dayPlan.map((item) => (
                 <div
                   key={item.time}
-                  className="flex min-h-[5.5rem] items-center"
+                  className="flex min-h-[7rem] items-center"
                 >
-                  <div className="w-[42%] pr-4">
+                  <div className="w-[42%] pr-6">
                     {item.side === "left" && (
                       <PlanItem
                         time={item.time}
@@ -443,7 +458,7 @@ ${data.favoriteSong}
                     )}
                   </div>
                   <div className="w-[16%]" aria-hidden="true" />
-                  <div className="w-[42%] pl-4">
+                  <div className="w-[42%] pl-6">
                     {item.side === "right" && (
                       <PlanItem
                         time={item.time}
@@ -457,6 +472,7 @@ ${data.favoriteSong}
             </div>
           </div>
         </motion.div>
+</div>
       </Section>
 
       {/* ——— ДРЕСС-КОД ——— */}
@@ -507,16 +523,27 @@ ${data.favoriteSong}
           </p>
 
           <div className="relative mx-auto mt-10 w-40">
-            <Tape className="left-1/2 top-2 -translate-x-1/2 rotate-[-8deg]" />
-            <TransparentImage
-              src="/photos/wine.png"
-              alt="бутылку вина (PNG без фона)"
-              className="mx-auto h-52 w-full rotate-[8deg]"
-            />
-            <p className="font-script absolute -bottom-1 right-0 text-sm rotate-[6deg] text-[#64001b]">
-              вместо цветов
-            </p>
-          </div>
+            {/* БУТЫЛКА (НИЖНИЙ СЛОЙ) */}
+  <TransparentImage
+    src="/photos/wine.png"
+    alt="бутылку вина"
+    className="relative z-10 mx-auto h-52 w-full rotate-[8deg]"
+  />
+
+  {/* СКОТЧ (ВЕРХНИЙ СЛОЙ) */}
+  <div className="absolute left-1/3 top-8 z-20 -translate-x-1/2 rotate-[-8deg]">
+    <Tape />
+  </div>
+
+  {/* ПОДПИСЬ */}
+  <p className="font-script absolute -bottom-1 right-0 z-10 text-sm rotate-[6deg] text-[#64001b]">
+    вместо цветов
+  </p>
+
+</div>
+<p className="font-hand mt-10 text-[1.2rem] leading-7 text-[#64001b] text-center">
+  В этот вечер мы будем рады разделить с вами атмосферу взрослого праздника, поэтому просим оставить дома самых маленьких. Спасибо за понимание! ❤️
+</p>
         </motion.div>
       </Section>
 
@@ -564,24 +591,6 @@ ${data.favoriteSong}
                 options={[
                   { value: "Да", label: "Да" },
                   { value: "Нет", label: "Нет" },
-                ]}
-              />
-
-              <FormOptionGroup
-                legend="Будете один или со второй половинкой?"
-                name="plusOne"
-                options={[
-                  { value: "Один", label: "Один / одна" },
-                  { value: "Со второй половинкой", label: "Со второй половинкой" },
-                ]}
-              />
-
-              <FormOptionGroup
-                legend="Планируете брать детей?"
-                name="kids"
-                options={[
-                  { value: "Нет", label: "Нет" },
-                  { value: "Да", label: "Да" },
                 ]}
               />
 
@@ -649,7 +658,7 @@ ${data.favoriteSong}
           </div>
 
           <p className="font-script mt-12 text-[2rem] rotate-[-2deg]">
-            С любовью, Артём и Дарья
+            С любовью, Даниил и Оксана
           </p>
         </div>
       </Section>
