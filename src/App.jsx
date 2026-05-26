@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 
 const CREAM = "#f4efe6";
 const BURGUNDY = "#64001b";
-const TELEGRAM_BOT_TOKEN = "8611552832:AAF-tHBJZNW07GitC9KLfhsWGZa1h7GsCNs";
-const TELEGRAM_CHAT_ID = "276030097";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
