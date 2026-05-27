@@ -81,7 +81,7 @@ function calculateTimeLeft(target) {
 }
 
 function buildJuly2026Cells() {
-  const offset = 3; // 1 июля 2026 — среда
+  const offset = 2;
 
   const cells = [];
 
